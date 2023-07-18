@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2023 at 08:03 AM
+-- Generation Time: Jul 18, 2023 at 08:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -45,6 +45,18 @@ INSERT INTO `admin` (`Id_admin`, `password`, `nama_admin`, `NoTelpon`, `Email`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `daftar_bimbingan`
+--
+
+CREATE TABLE `daftar_bimbingan` (
+  `no_bimbingan` int(2) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dosen`
 --
 
@@ -61,7 +73,7 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`NIDN`, `password`, `nama_dosen`, `NoTelpon`, `Email`) VALUES
-(7501, '12345678', 'Budi Setyo S.kom., M.Kom.', '081245644565', 'Budisetyo@gmail.com');
+(7501, '000', 'Budi Setyo S.kom., M.Kom.', '081246546489', 'Budisetyo@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -99,7 +111,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`NIM`, `password`, `nama_Mahasiswa`, `NoTelpon`, `Email`) VALUES
-(2055, '1234', 'Muhammad Dzulkarnain', '088845645644', 'Dzulkarnain12@gmail.com');
+(2011, '1234', 'Muhammad FAKKK', '08123564658', 'Fakkk@gmail.com'),
+(2055, '000', 'Muhammad Dzulkarnain', '081564849498', 'Dzulkarnain5@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -108,13 +121,23 @@ INSERT INTO `mahasiswa` (`NIM`, `password`, `nama_Mahasiswa`, `NoTelpon`, `Email
 --
 
 CREATE TABLE `skripsi` (
-  `judul` varchar(100) NOT NULL,
-  `topik` varchar(100) NOT NULL,
+  `judulSkripsiEN` varchar(100) NOT NULL,
+  `topikSkripsiEN` varchar(100) NOT NULL,
+  `abstrakSkripsi` varchar(100) NOT NULL,
+  `judulSkripsi` varchar(100) NOT NULL,
+  `topikSkripsi` varchar(100) NOT NULL,
   `NIM` int(11) NOT NULL,
-  `dospem1` varchar(35) NOT NULL,
-  `dospem2` varchar(35) NOT NULL,
+  `dosenPembimbing1` varchar(35) NOT NULL,
+  `dosenPembimbing2` varchar(35) NOT NULL,
   `idSkripsi` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `skripsi`
+--
+
+INSERT INTO `skripsi` (`judulSkripsiEN`, `topikSkripsiEN`, `abstrakSkripsi`, `judulSkripsi`, `topikSkripsi`, `NIM`, `dosenPembimbing1`, `dosenPembimbing2`, `idSkripsi`) VALUES
+('inoo', 'inovation', 'lala', 'ino', 'inovasi', 0, 'mala', 'bala', 0);
 
 --
 -- Indexes for dumped tables
