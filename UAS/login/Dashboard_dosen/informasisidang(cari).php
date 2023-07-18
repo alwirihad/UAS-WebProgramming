@@ -1,8 +1,26 @@
+<?php
+    include("../konek.php");
+    session_start();
+    $nidn = $_SESSION['NIDN'];
+
+    // Query untuk mengambil data Dosen berdasarkan NIM
+    $query = "SELECT NIDN, nama_dosen, NoTelpon, Email, password FROM dosen WHERE NIDN = '$nidn'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+
+     // Ambil data Dosen
+    $nidn = $row['NIDN'];
+    $password = $row['password'];
+    $namaDosen = $row['nama_dosen'];
+    $noTelpon = $row['NoTelpon'];
+    $email = $row['Email'];
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Informasi Dosen Penguji</title>
+    <title>Informasi Data Sidang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -87,7 +105,7 @@
             background-color: rgba(240, 160, 40, 1);
         }
 
-        .sidebar ul .dafja {
+        .sidebar ul .formsid {
             background-color: rgba(240, 160, 40, 1);
         }
 
@@ -110,12 +128,11 @@
             color: black;
         }
 
-        .flex-row .dafja {
+        .flex-row .formsidang {
             position: relative;
-            left: 220px;
+            left: 210px;
             bottom: 138px;
         }
-
 
         .overlap-group {
             position: relative;
@@ -199,68 +216,6 @@
             text-transform: capitalize;
         }
 
-        .jadwal {
-            position: relative;
-            left: 30px;
-            bottom: 40px;
-            display: grid;
-            grid-template-columns: auto repeat(3, 1fr);
-            /* Mengatur 4 kolom dengan lebar sama */
-            gap: 1px;
-            /* Jarak antara sel */
-            border: 1px solid rgba(16, 65, 103, 1);
-            border-radius: 5px;
-            overflow: hidden;
-            width: 750px;
-            height: 40px;
-            box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
-        }
-
-        .judul {
-            border-left: 1px solid #104167;
-            background-color: #ffffff;
-            padding: 8px;
-            text-align: center;
-            color: #000;
-            font-family: Poppins;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            text-transform: capitalize;
-        }
-
-        .jadwal1 {
-            position: relative;
-            left: 30px;
-            bottom: 35px;
-            display: grid;
-            grid-template-columns: auto repeat(3, 1fr);
-            /* Mengatur 4 kolom dengan lebar sama */
-            gap: 1px;
-            /* Jarak antara sel */
-            border: 1px solid rgba(16, 65, 103, 1);
-            border-radius: 5px;
-            overflow: hidden;
-            width: 750px;
-            height: 40px;
-            box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
-        }
-
-        .judul1 {
-            border-left: 1px solid #104167;
-            background-color: #ffffff;
-            padding: 8px;
-            text-align: center;
-            color: #ffffff;
-            font-family: Poppins;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            text-transform: capitalize;
-        }
-
         @media(max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -294,20 +249,17 @@
 <body>
     <div class="sidebar">
         <img src="../img/pp.png" class="pp">
-        <header>Nama Admin</header>
+        <h4 class="nama-dosen"><?php echo $namaDosen; ?></h4>
         <ul>
             <li class="Profil"><a href="profil.php"><i></i>Profil</a></li>
             <li class="formsid"><a href="informasisidang.php"><i></i>Informasi Data Sidang</a></li>
-            <li class="dafja"><a href="informasipenguji.php"><i></i>Informasi Dosen Penguji</a></li>
-            <li class="dafbim"><a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a></li>
-            <li class="skl"><a href="skl.php"><i></i>SKL</a></li>
             <li class="logout"><a href="logout.php"><i></i>Logout</a></li>
         </ul>
     </div>
     <div class="content">
         <div class="flex-row">
-            <a href="dashboard_admin.php" class="back button">&laquo; </a>
-            <h3 class="dafja">INFORMASI DOSEN PENGUJI</h3>
+            <a href="dashboard_dosen.php" class="back button">&laquo; </a>
+            <h3 class="formsidang">INFORMASI DATA SIDANG</h3>
         </div>
         <div class="overlap-group">
             <div class="overlap-group3">
@@ -317,34 +269,73 @@
                 </div>
                 <div class="asset">
                     <div class="nama-1">
-                        Nama
+                        Status
                     </div>
                     <input type="text" class="nama">
                     <div class="rectangle-25"></div>
                 </div>
                 <div class="asset">
                     <div class="nama-1">
-                        NIM
+                        Nama
                     </div>
                     <input type="text" class="NIM">
                     <div class="rectangle-25"></div>
                 </div>
                 <div class="asset">
                     <div class="nama-1">
-                        Email
+                        NIM
                     </div>
                     <input type="text" class="Password">
                     <div class="rectangle-25"></div>
                 </div>
-                <div class="jadwal">
-                    <div class="judul">No.</div>
-                    <div class="judul"> Tanggal Ubah</div>
-                    <div class="judul">Keterangan</div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Topik Skripsi
+                    </div>
+                    <input type="text" class="notelp">
+                    <div class="rectangle-25"></div>
                 </div>
-                <div class="jadwal1">
-                    <div class="judul1">no.</div>
-                    <div class="judul"></div>
-                    <div class="judul"></div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Judul Skripsi
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
+                </div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Tanggal Sidang
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
+                </div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Dosen Pembimbing 1
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
+                </div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Dosen Pembimbing 2
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
+                </div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Nilai
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
+                </div>
+                <div class="asset">
+                    <div class="nama-1">
+                        Revisi Sidang
+                    </div>
+                    <input type="text" class="Email">
+                    <div class="rectangle-25"></div>
                 </div>
             </div>
 

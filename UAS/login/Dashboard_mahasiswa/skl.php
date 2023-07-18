@@ -1,3 +1,17 @@
+<?php
+    include("../konek.php");
+    session_start();
+    $nim = $_SESSION['NIM'];
+
+    // Query untuk mengambil data mahasiswa berdasarkan NIM
+    $query = "SELECT nama_Mahasiswa FROM mahasiswa WHERE NIM = '$nim'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    // Ambil nama mahasiswa
+    $namaMahasiswa = $row['nama_Mahasiswa'];
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,8 +33,8 @@
 
   <body>
     <div class="sidebar">
-      <img src="/img/pp.png" class="pp" />
-      <header>Nama Mahasiswa</header>
+      <img src="../img/pp.png" class="pp" />
+      <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
       <ul>
         <li class="Profil">
           <a href="profil.php"><i></i>Profil</a>
@@ -35,7 +49,7 @@
           <a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a>
         </li>
         <li class="skl">
-          <a href="skl.php"><i></i>SKL</a>
+          <a href="#"><i></i>SKL</a>
         </li>
         <li class="logout">
           <a href="logout.php"><i></i>Logout</a>

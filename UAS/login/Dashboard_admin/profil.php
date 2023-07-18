@@ -50,7 +50,7 @@
           <a href="informasipenguji.php"><i></i>Informasi Dosen Penguji</a>
         </li>
         <li class="dafbim">
-          <a href="DaftarBimbing.css"><i></i>Daftar Bimbingan</a>
+          <a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a>
         </li>
         <li class="skl">
           <a href="skl.php"><i></i>SKL</a>

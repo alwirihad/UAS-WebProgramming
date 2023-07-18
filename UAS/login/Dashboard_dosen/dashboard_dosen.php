@@ -1,3 +1,22 @@
+<?php
+    include("../konek.php");
+    session_start();
+    $nidn = $_SESSION['NIDN'];
+
+    // Query untuk mengambil data Dosen berdasarkan NIM
+    $query = "SELECT NIDN, nama_dosen, NoTelpon, Email, password FROM dosen WHERE NIDN = '$nidn'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+
+     // Ambil data Dosen
+    $nidn = $row['NIDN'];
+    $password = $row['password'];
+    $namaDosen = $row['nama_dosen'];
+    $noTelpon = $row['NoTelpon'];
+    $email = $row['Email'];
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -13,18 +32,18 @@
 
 <body>
     <div class="sidebar">
-        <img src="/img/pp.png" class="pp">
-        <header>Nama Dosen</header>
+        <img src="../img/pp.png" class="pp">
+        <h4 class="nama-dosen"><?php echo $namaDosen; ?></h4>
         <ul>
-            <li><a href="profil.html"><i class="Profil"></i>Profil</a></li>
-            <li><a href="informasisidang.html"><i class="formsid"></i>Informasi Sidang</a></li>
-            <li><a href="logout.html"><i class="logout"></i>Logout</a></li>
+            <li><a href="profil.php"><i class="Profil"></i>Profil</a></li>
+            <li><a href="informasisidang.php"><i class="formsid"></i>Informasi Sidang</a></li>
+            <li><a href="logout.php"><i class="logout"></i>Logout</a></li>
         </ul>
     </div>
     <div class="content">
-        <img src="/img/Logo Universitas Esa Unggul 1.png" alt="">
+        <img src="../img/Logo Universitas Esa Unggul 1.png" alt="">
         <div class="cardcontaint">
-            <div class="cardprof" onclick="window.location.href='profil.html'">
+            <div class="cardprof" onclick="window.location.href='profil.php'">
                 <div class="card" style="width: 10rem;">
                     <div class="card-body">
                         <h5 class="card-title">Profil</h5>
@@ -34,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="cardformsid" onclick="window.location.href='informasisidang.html'">
+            <div class="cardformsid" onclick="window.location.href='informasisidang.php'">
                 <div class="card" style="width: 10rem;">
                     <div class="card-body">
                         <h5 class="card-title">Formulir Sidang</h5>
@@ -44,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="cardlogout" onclick="window.location.href='logout.html'">
+            <div class="cardlogout" onclick="window.location.href='logout.php'">
                 <div class="card" style="width: 10rem;">
                     <div class="card-body">
                         <h5 class="card-title">Logout</h5>

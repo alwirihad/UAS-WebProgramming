@@ -1,5 +1,5 @@
 <?php
-    include("konek.php");
+    include("../konek.php");
     session_start();
     $nim = $_SESSION['NIM'];
 
@@ -20,9 +20,10 @@
         $nama = $_POST['nama'];
         $noTelp = $_POST['no_telp'];
         $email = $_POST['email'];
+        $password = $_POST['password'];
 
         // Query untuk melakukan update data mahasiswa
-        $updateQuery = "UPDATE mahasiswa SET nama_Mahasiswa = '$nama', NoTelpon = '$noTelp', Email = '$email' WHERE NIM = '$nim'";
+        $updateQuery = "UPDATE mahasiswa SET nama_Mahasiswa = '$nama', NoTelpon = '$noTelp', Email = '$email', password = '$password' WHERE NIM = '$nim'";
         $updateResult = mysqli_query($koneksi, $updateQuery);
 
         if($updateResult) {
@@ -287,7 +288,7 @@
 
   <body>
     <div class="sidebar">
-      <img src="/img/pp.png" class="pp" />
+      <img src="../img/pp.png" class="pp" />
       <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
       <ul>
         <li class="Profil">

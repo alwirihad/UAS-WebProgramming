@@ -1,34 +1,33 @@
 <?php
     include("../konek.php");
     session_start();
-    $id = $_SESSION['id_admin'];
+    $nidn = $_SESSION['NIDN'];
 
-    // Query untuk mengambil data admin berdasarkan Id Admin
-    $query = "SELECT Id_admin, nama_admin, NoTelpon, Email, password FROM admin WHERE Id_admin = '$id'";
+    // Query untuk mengambil data dosen berdasarkan NIM
+    $query = "SELECT NIDN, nama_dosen, NoTelpon, Email, password FROM dosen WHERE NIDN = '$nidn'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-    // Ambil data admin
-    $idAdmin = $row['Id_admin'];
+    // Ambil data dosen
+    $nidn = $row['NIDN'];
     $password = $row['password'];
-    $namaAdmin = $row['nama_admin'];
-    $noTelpAdmin = $row['NoTelpon'];
-    $emailAdmin = $row['Email'];
+    $namadosen = $row['nama_dosen'];
+    $noTelpon = $row['NoTelpon'];
+    $email = $row['Email'];
 
     // Proses update profil
     if(isset($_POST['update'])) {
-        $namaAdmin = $_POST['nama_admin'];
-        $noTelpAdmin = $_POST['NoTelpon'];
-        $emailAdmin = $_POST['Email'];
-        $password   = $_POST['password'];
-
-        // Query untuk melakukan update data admin
-        $updateQuery = "UPDATE admin SET nama_admin = '$namaAdmin', NoTelpon = '$noTelpAdmin', Email = '$emailAdmin', password = '$password' WHERE Id_admin = '$id'";
+        $nama = $_POST['nama'];
+        $noTelpon = $_POST['no_telp'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        
+        // Query untuk melakukan update data dosen
+        $updateQuery = "UPDATE dosen SET nama_dosen = '$nama', NoTelpon = '$noTelpon', Email = '$email', password = '$password' WHERE NIDN = '$nidn'";
         $updateResult = mysqli_query($koneksi, $updateQuery);
 
         if($updateResult) {
             // Redirect ke halaman profil setelah berhasil update
-
             header("Location: profil.php");
             exit();
         } else {
@@ -290,22 +289,13 @@
   <body>
     <div class="sidebar">
       <img src="../img/pp.png" class="pp" />
-      <header><?php echo $namaAdmin; ?></header>
+      <header>Nama Dosen</header>
       <ul>
         <li class="Profil">
           <a href="profil.php"><i></i>Profil</a>
         </li>
         <li class="formsid">
-          <a href="informasisidang.php"><i></i>Informasi Data Sidang</a>
-        </li>
-        <li class="dafja">
-          <a href="daftarpengaju.php"><i></i>Daftar Pengajuan</a>
-        </li>
-        <li class="dafbim">
-          <a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a>
-        </li>
-        <li class="skl">
-          <a href="skl.php"><i></i>SKL</a>
+          <a href="informasisidang.php"><i></i>Informasi Sidang</a>
         </li>
         <li class="logout">
           <a href="logout.php"><i></i>Logout</a>
@@ -314,7 +304,7 @@
     </div>
     <div class="content">
       <div class="flex-row">
-        <a href="dashboard_mahasiswa.php" class="back button">&laquo; </a>
+        <a href="dashboard_dosen.php" class="back button">&laquo; </a>
         <h3 class="profil">PROFIL</h3>
       </div>
       <div class="overlap-group">
@@ -327,27 +317,27 @@
           <button class="batal" onclick="window.location.href='profil.php'">Batal</button>
           <div class="asset">
             <div class="nama-1">Nama</div>
-            <input type="text" class="nama" name="nama_admin" value="<?php echo $namaAdmin; ?>"readonly/>
+            <input type="text" class="nama" name="nama" value="<?php echo $namadosen; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
-            <div class="nama-1">Id Admin</div>
-            <input type="text" class="Id_admin" name="Id_admin" value="<?php echo $idAdmin; ?>" readonly/>
+            <div class="nama-1">NIDN</div>
+            <input type="text" class="NIDN" name="nidn" value="<?php echo $nidn; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Password</div>
-            <input type="text" class="Password" name="password" value="<?php echo $password; ?>"/>
+            <input type="text" class="Password" name="password" value="<?php echo $password; ?>" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">No.Telp</div>
-            <input type="text" class="notelp" name="NoTelpon" value="<?php echo $noTelpAdmin; ?>"/>
+            <input type="text" class="notelp" name="no_telp" value="<?php echo $noTelpon; ?>" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Email</div>
-            <input type="text" class="Email" name="Email" value="<?php echo $emailAdmin; ?>"/>
+            <input type="text" class="Email" name="email" value="<?php echo $email; ?>"/>
             <div class="rectangle-25"></div>
           </div>
           </form>

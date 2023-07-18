@@ -1,5 +1,5 @@
 <?php
-    include("konek.php");
+    include("../konek.php");
     session_start();
     $nim = $_SESSION['NIM'];
 
@@ -14,6 +14,31 @@
     $namaMahasiswa = $row['nama_Mahasiswa'];
     $noTelpMahasiswa = $row['NoTelpon'];
     $emailMahasiswa = $row['Email'];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      // Mengambil nilai input dari elemen formulir
+      $topikSkripsi = $_POST['topikSkripsi'];
+      $topikSkripsiEN = $_POST['topikSkripsiEN'];
+      $judulSkripsi = $_POST['judulSkripsi'];
+      $judulSkripsiEN = $_POST['judulSkripsiEN'];
+      $abstrakSkripsi = $_POST['abstrakSkripsi'];
+      $dosenPembimbing1 = $_POST['dosenPembimbing1'];
+      $dosenPembimbing2 = $_POST['dosenPembimbing2'];
+  
+      // Query INSERT untuk menyimpan data ke tabel pengajuan_sidang
+      $query = "INSERT INTO skripsi (topikSkripsi, topikSkripsiEN, judulSkripsi, judulSkripsiEN, abstrakSkripsi, dosenPembimbing1, dosenPembimbing2)
+                VALUES ('$topikSkripsi', '$topikSkripsiEN', '$judulSkripsi', '$judulSkripsiEN', '$abstrakSkripsi', '$dosenPembimbing1', '$dosenPembimbing2')";
+  
+      // Menjalankan query INSERT
+      if (mysqli_query($koneksi, $query)) {
+          // Jika data berhasil disimpan, redirect ke halaman lain atau tampilkan pesan sukses
+          header("Location: ../Dashboard_admin/informasipenguji.php"); // Ganti "halaman_lain.php" dengan halaman tujuan setelah data disimpan
+          exit;
+      } else {
+          // Jika terjadi error saat menyimpan data, tampilkan pesan error
+          echo "Error: " . mysqli_error($koneksi);
+      }
+  }
 ?>
 
 
@@ -38,7 +63,7 @@
 
   <body>
     <div class="sidebar">
-      <img src="/img/pp.png" class="pp" />
+      <img src="../img/pp.png" class="pp" />
       <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
       <ul>
         <li class="Profil">
@@ -48,7 +73,7 @@
           <a href="formsid.php"><i></i>Formulir Sidang</a>
         </li>
         <li class="dafja">
-          <a href="dafja.php"><i></i>Daftar Pengajuan</a>
+          <a href="#"><i></i>Daftar Pengajuan</a>
         </li>
         <li class="dafbim">
           <a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a>
@@ -69,45 +94,47 @@
       <div class="overlap-group">
         <div class="overlap-group3">
           <div class="data">Data</div>
-          <div class="frame10">
-            <button class="Update">Update</button>
-          </div>
-          <button class="batal">Batal</button>
-          <div class="asset">
-            <div class="nama-1">Topik Skripsi</div>
-            <input type="text" class="nama" />
-            <div class="rectangle-25"></div>
-          </div>
-          <div class="asset">
-            <div class="nama-1">Topik Skripsi(EN)</div>
-            <input type="text" class="NIM" />
-            <div class="rectangle-25"></div>
-          </div>
-          <div class="asset">
-            <div class="nama-1">Judul Skripsi</div>
-            <input type="text" class="Password" />
-            <div class="rectangle-25"></div>
+          <form method="post" action="">
+            <div class="frame10">
+              <button class="Update" type="submit">Update</button>
+            </div>
+            <button class="batal">Batal</button>
+            <div class="asset">
+              <div class="nama-1">Topik Skripsi</div>
+              <input type="text" class="nama" name="topikSkripsi"/>
+              <div class="rectangle-25"></div>
+            </div>
+            <div class="asset">
+              <div class="nama-1">Topik Skripsi(EN)</div>
+              <input type="text" class="NIM" name="topikSkripsiEN"/>
+              <div class="rectangle-25"></div>
+            </div>
+            <div class="asset">
+              <div class="nama-1">Judul Skripsi</div>
+              <input type="text" class="Password" name="judulSkripsi"/>
+              <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Judul Skripsi(EN)</div>
-            <input type="text" class="notelp" />
+            <input type="text" class="notelp" name="judulSkripsiEN" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Abstrak Skripsi</div>
-            <input type="text" class="Email" />
+            <input type="text" class="Email" name="abstrakSkripsi" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Dosen Pembimbing 1</div>
-            <input type="text" class="Email" />
+            <input type="text" class="Email" name="dosenPembimbing1"/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Dosen Pembimbing 2</div>
-            <input type="text" class="Email" />
+            <input type="text" class="Email" name="dosenPembimbing2" />
             <div class="rectangle-25"></div>
           </div>
+        </form>
         </div>
       </div>
     </div>

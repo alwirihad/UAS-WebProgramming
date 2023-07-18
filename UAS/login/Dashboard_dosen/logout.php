@@ -1,15 +1,19 @@
 <?php
     include("../konek.php");
     session_start();
-    $nim = $_SESSION['NIM'];
+    $nidn = $_SESSION['NIDN'];
 
-    // Query untuk mengambil data mahasiswa berdasarkan NIM
-    $query = "SELECT nama_Mahasiswa FROM mahasiswa WHERE NIM = '$nim'";
+    // Query untuk mengambil data Dosen berdasarkan NIM
+    $query = "SELECT NIDN, nama_dosen, NoTelpon, Email, password FROM dosen WHERE NIDN = '$nidn'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-    // Ambil nama mahasiswa
-    $namaMahasiswa = $row['nama_Mahasiswa'];
+     // Ambil data Dosen
+    $nidn = $row['NIDN'];
+    $password = $row['password'];
+    $namaDosen = $row['nama_dosen'];
+    $noTelpon = $row['NoTelpon'];
+    $email = $row['Email'];
 ?>
 
 <!DOCTYPE html>
@@ -34,39 +38,30 @@
   <body>
     <div class="sidebar">
       <img src="../img/pp.png" class="pp" />
-      <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
+      <h4 class="nama-dosen"><?php echo $namaDosen; ?></h4>
       <ul>
         <li class="Profil">
           <a href="profil.php"><i></i>Profil</a>
         </li>
         <li class="formsid">
-          <a href="formsid.php"><i></i>Formulir Sidang</a>
-        </li>
-        <li class="dafja">
-          <a href="daftarpengaju.php"><i></i>Daftar Pengajuan</a>
-        </li>
-        <li class="dafbim">
-          <a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a>
-        </li>
-        <li class="skl">
-          <a href="skl.php"><i></i>SKL</a>
+          <a href="informasisidang.php"><i></i>Informasi Data Sidang</a>
         </li>
         <li class="logout">
-          <a href="#"><i></i>Logout</a>
+          <a href="logout.php"><i></i>Logout</a>
         </li>
       </ul>
     </div>
     <div class="content">
       <div class="flex-row">
-        <a href="dashboard_mahasiswa.php" class="back button">&laquo; </a>
+        <a href="dashboard_dosen.php" class="back button">&laquo; </a>
         <h3 class="Logout">Logout</h3>
       </div>
       <div class="overlap-group">
         <div class="overlap-group3">
           <div class="Saved">You're Data Will Be Saved</div>
           <div class="frame10">
-            <button class="Yes" type="submit"><a href="../loginsid.php">Yes</a></button>
-            <button class="No" type="submit"><a href="dashboard_mahasiswa.php">No</a></button>
+            <button class="Yes"><a href="../loginsds.php">Yes</a></button>
+            <button class="No"><a href="dashboard_dosen.php">No</a></button>
           </div>
         </div>
       </div>

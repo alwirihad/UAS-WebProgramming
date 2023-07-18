@@ -1,5 +1,5 @@
 <?php
-    include("konek.php");
+    include("../konek.php");
     session_start();
     $nim = $_SESSION['NIM'];
 
@@ -26,19 +26,19 @@
 
 <body>
     <div class="sidebar">
-        <img src="/img/pp.png" class="pp">
+        <img src="../img/pp.png" class="pp">
         <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
         <ul>
             <li><a href="profil.php"><i class="Profil"></i>Profil</a></li>
             <li><a href="formsid.php"><i class="formsid"></i>Formulir Sidang</a></li>
-            <li><a href="dafja.php"><i class="dafja"></i>Daftar Pengajuan</a></li>
+            <li><a href="daftarpengaju.php"><i class="dafja"></i>Daftar Pengajuan</a></li>
             <li><a href="DaftarBimbing.php"><i class="dafbim"></i>Daftar Bimbingan</a></li>
             <li><a href="skl.php"><i class="skl"></i>SKL</a></li>
             <li><a href="logout.php"><i class="logout"></i>Logout</a></li>
         </ul>
     </div>
     <div class="content">
-        <img src="/img/Logo Universitas Esa Unggul 1.png" alt="">
+        <img src="../img/Logo Universitas Esa Unggul 1.png" alt="">
         <div class="cardcontaint">
             <div class="cardprof" onclick="window.location.href='profil.php'">
                 <div class="card" style="width: 10rem;">

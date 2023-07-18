@@ -1,5 +1,5 @@
 <?php
-    include("konek.php");
+    include("../konek.php");
     session_start();
     $nim = $_SESSION['NIM'];
 
@@ -37,11 +37,11 @@
 
   <body>
     <div class="sidebar">
-      <img src="/img/pp.png" class="pp" />
+      <img src="../img/pp.png" class="pp" />
       <h4 class="nama-mahasiswa"><?php echo $namaMahasiswa; ?></h4>
       <ul>
         <li class="Profil">
-          <a href="profil.php"><i></i>Profil</a>
+          <a href="#"><i></i>Profil</a>
         </li>
         <li class="formsid">
           <a href="formsid.php"><i></i>Formulir Sidang</a>

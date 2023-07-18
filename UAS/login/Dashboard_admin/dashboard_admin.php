@@ -39,7 +39,7 @@
         </ul>
     </div>
     <div class="content">
-        <img src="/img/Logo Universitas Esa Unggul 1.png" alt="">
+        <img src="../img/Logo Universitas Esa Unggul 1.png" alt="">
         <div class="cardcontaint">
             <div class="cardprof" onclick="window.location.href='profil.php'">
                 <div class="card" style="width: 10rem;">

@@ -13,11 +13,11 @@
 
 <body>
     <div class="sidebar">
-        <img src="/img/pp.png" class="pp">
+        <img src="../img/pp.png" class="pp">
         <header>Nama Admin</header>
         <ul>
             <li class="Profil"><a href="profil.php"><i></i>Profil</a></li>
-            <li class="formsid"><a href="formsid.php"><i></i>Formulir Sidang</a></li>
+            <li class="formsid"><a href="formsid.php"><i></i>Informasi Data Sidang</a></li>
             <li class="dafja"><a href="informasipenguji.php"><i></i>Informasi Dosen Penguji</a></li>
             <li class="dafbim"><a href="DaftarBimbing.php"><i></i>Daftar Bimbingan</a></li>
             <li class="skl"><a href="skl.php"><i></i>SKL</a></li>

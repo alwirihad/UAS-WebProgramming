@@ -14,7 +14,7 @@
 
 <body>
     <div class="sidebar">
-        <img src="/img/pp.png" class="pp">
+        <img src="../img/pp.png" class="pp">
         <header>Nama Admin</header>
         <ul>
             <li class="Profil"><a href="profil.php"><i></i>Profil</a></li>
