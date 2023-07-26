@@ -4,16 +4,20 @@
     $nidn = $_SESSION['NIDN'];
 
     // Query untuk mengambil data Dosen berdasarkan NIM
-    $query = "SELECT NIDN, nama_dosen, NoTelpon, Email, password FROM dosen WHERE NIDN = '$nidn'";
+    $query = "SELECT dosen.NIDN, dosen.nama_dosen, mahasiswa.NIM, mahasiswa.nama_Mahasiswa, skripsi.judulSkripsi, skripsi.topikSkripsi, skripsi.abstrakSkripsi, jadwal.tanggal, jadwal.ruang FROM jadwal INNER JOIN mahasiswa ON mahasiswa.NIM = jadwal.NIM INNER JOIN dosen ON dosen.NIDN = jadwal.NIDN1 INNER JOIN skripsi ON skripsi.idskripsi = jadwal.idskripsi WHERE dosen.NIDN = '$nidn';";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
      // Ambil data Dosen
     $nidn = $row['NIDN'];
-    $password = $row['password'];
-    $namaDosen = $row['nama_dosen'];
-    $noTelpon = $row['NoTelpon'];
-    $email = $row['Email'];
+    $nama_dosen = $row['nama_dosen'];
+    $NIM = $row['NIM'];
+    $nama_mahasiswa = $row['nama_Mahasiswa'];
+    $judul = $row['judulSkripsi'];
+    $topik = $row['topikSkripsi'];
+    $abstrak = $row['abstrakSkripsi'];
+    $tanggal = $row['tanggal'];
+    $ruang = $row['ruang'];
 ?>
 
 
@@ -33,7 +37,7 @@
 <body>
     <div class="sidebar">
         <img src="../img/pp.png" class="pp">
-        <header class="nama-dosen"><?php echo $namaDosen; ?></header>
+        <header class="nama-dosen"><?php echo $nama_dosen; ?></header>
         <ul>
             <li class="Profil"><a href="profil.php"><i></i>Profil</a></li>
             <li class="formsid"><a href="informasisidang.php"><i></i>Informasi Data Sidang</a></li>
@@ -58,7 +62,26 @@
                     <input type="text" class="nama">
                     <div class="rectangle-25"></div>
                 </div>
-
+                <div class="jadwal">
+                    <div class="judul">No.</div>
+                    <div class="judul"> NIM mahasiswa</div>
+                    <div class="judul"> Nama mahasiswa</div>
+                    <div class="judul">Judul Skripsi</div>
+                    <div class="judul">Topik Skripsi</div>
+                    <div class="judul">Abstrak Skripsi</div>
+                    <div class="judul">Tanggal</div>
+                    <div class="judul">Ruang</div>
+                </div>
+                <div class="jadwal1">
+                    <div class="judul1"><?= $no ?></div>
+                    <div class="judul"><?= $nim ?></div>
+                    <div class="judul"><?= $nama_mahasiswa ?></div>
+                    <div class="judul"><?= $judul ?></div>
+                    <div class="judul"><?= $topik ?></div>
+                    <div class="judul"><?= $abstrak ?></div>
+                    <div class="judul"><?= $tanggal ?></div>
+                    <div class="judul"><?= $ruang ?></div>
+                </div>
             </div>
 
         </div>

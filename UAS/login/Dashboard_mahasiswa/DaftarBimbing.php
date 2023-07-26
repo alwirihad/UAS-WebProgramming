@@ -4,27 +4,15 @@
     $nim = $_SESSION['NIM'];
 
     // Query untuk mengambil data mahasiswa berdasarkan NIM
-    $query = "SELECT NIM, nama_Mahasiswa, NoTelpon, Email, password FROM mahasiswa WHERE NIM = '$nim'";
+    $query = "SELECT mahasiswa.nama_mahasiswa, daftar_bimbingan.no_bimbingan, daftar_bimbingan.tanggal, daftar_bimbingan.keterangan FROM daftar_bimbingan INNER JOIN mahasiswa ON mahasiswa.NIM = daftar_bimbingan.NIM WHERE mahasiswa.NIM = '$nim'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-     // Ambil data mahasiswa
-    $nimMahasiswa = $row['NIM'];
-    $password = $row['password'];
-    $namaMahasiswa = $row['nama_Mahasiswa'];
-    $noTelpMahasiswa = $row['NoTelpon'];
-    $emailMahasiswa = $row['Email'];
-
-    // Menerima data keterangan dari URL
-    $keterangan = isset($_GET['keterangan']) ? $_GET['keterangan'] : '';
-
-    // Mengenerate nomor bimbingan dan tanggal saat ini
-    $noBimbingan = 'Generate Nomor Bimbingan'; // Silakan isi dengan logika yang sesuai
-    $tanggalUbah = date('Y-m-d');
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $keterangan = $_POST['keterangan'];
-    }
+    // Ambil data mahasiswa
+    $namaMahasiswa = $row['nama_mahasiswa'];
+    $no = $row['no_bimbingan'];
+    $tanggal = $row['tanggal'];
+    $keterangan = $row['keterangan'];
 ?>
 
 <!DOCTYPE html>
@@ -71,9 +59,9 @@
                     <div class="judul">Keterangan</div>
                 </div>
                 <div class="jadwal1">
-                    <div class="judul1"></div>
-                    <div class="judul"></div>
-                    <div class="judul"></div>
+                    <div class="judul1"><?= $no ?></div>
+                    <div class="judul"><?= $tanggal ?></div>
+                    <div class="judul"><?= $keterangan ?></div>
                 </div>
 
             </div>

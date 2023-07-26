@@ -4,7 +4,7 @@
     $nim = $_SESSION['NIM'];
 
     // Query untuk mengambil data mahasiswa berdasarkan NIM
-    $query = "SELECT mahasiswa.NIM, mahasiswa.nama_Mahasiswa, jadwal.tanggal, jadwal.sesi, jadwal.ruang, jadwal.detail, jadwal.status, skripsi.topikSkripsi, skripsi.judulSkripsi, skripsi.NIDN1, skripsi.NIDN2, dosen1.nama_dosen AS nama_dosen1, dosen2.nama_dosen AS nama_dosen2 FROM jadwal INNER JOIN mahasiswa ON jadwal.NIM = mahasiswa.NIM INNER JOIN skripsi ON jadwal.idskripsi = skripsi.idskripsi INNER JOIN dosen AS dosen1 ON skripsi.NIDN1 = dosen1.NIDN INNER JOIN dosen AS dosen2 ON skripsi.NIDN2 = dosen2.NIDN WHERE mahasiswa.NIM = '$nim'";
+    $query = "SELECT mahasiswa.NIM, mahasiswa.nama_Mahasiswa, jadwal.tanggal, jadwal.sesi, jadwal.ruang, jadwal.topik, jadwal.judul, jadwal.dospen1, jadwal.dospen2, jadwal.detail, jadwal.status FROM mahasiswa INNER JOIN jadwal on mahasiswa.NIM = jadwal.NIM;";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
@@ -14,13 +14,53 @@
     $tanggal = $row['tanggal'];
     $sesi = $row['sesi'];
     $ruang = $row['ruang'];
-    $topik = $row['topikSkripsi'];
-    $judul = $row['judulSkripsi'];
-    $dospen1 = $row['nama_dosen1'];
-    $dospen2 = $row['nama_dosen2'];
+    $topik = $row['topik'];
+    $judul = $row['judul'];
+    $dospen1 = $row['dospen1'];
+    $dospen2 = $row['dospen2'];
     $detail = $row['detail'];
     $status = $row['status'];
 
+    // Proses update profil
+    if (isset($_POST["submit"])) {
+      // Ambil data dari formulir
+      $newnim = $_POST['NIM'];
+      $newnamaMahasiswa = $_POST['nama'];
+      $newtanggal = $_POST['tanggal'];
+      $newsesi = $_POST['sesi'];
+      $newruang = $_POST['ruang'];
+      $newtopik = $_POST['topik'];
+      $newjudul = $_POST['judul'];
+      $newdospen1 = $_POST['dospen1'];
+      $newdospen2 = $_POST['dospen2'];
+      $newdetail = $_POST['detail'];
+      $newstatus = $_POST['status'];
+  
+      // Query untuk melakukan update data mahasiswa
+      $updateQuery = "UPDATE mahasiswa
+                INNER JOIN jadwal ON mahasiswa.NIM = jadwal.NIM
+                SET mahasiswa.nama_Mahasiswa = '$newnamaMahasiswa',
+                    jadwal.tanggal = '$newtanggal',
+                    jadwal.sesi = '$newsesi',
+                    jadwal.ruang = '$newruang',
+                    jadwal.topik = '$newtopik',
+                    jadwal.judul = '$newjudul',
+                    jadwal.dospen1 = '$newdospen1',
+                    jadwal.dospen2 = '$newdospen2',
+                    jadwal.detail = '$newdetail',
+                    jadwal.status = '$newstatus'
+                WHERE mahasiswa.NIM = '$newnim'";
+      $updateResult = mysqli_query($koneksi, $updateQuery);
+
+      if($updateResult) {
+          // Redirect ke halaman formsid setelah berhasil update
+          header("Location: formsid.php");
+          exit();
+      } else {
+          // Tampilkan pesan error jika terjadi kesalahan
+          $error = "Gagal memperbarui profil. Silakan coba lagi.";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +79,7 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="formsid.css" />
+    <link rel="stylesheet" href="formsid(up).css">
   </head>
 
   <body>
@@ -51,7 +91,7 @@
           <a href="profil.php"><i></i>Profil</a>
         </li>
         <li class="formsid">
-          <a href="#"><i></i>Formulir Sidang</a>
+          <a href="formsid.php"><i></i>Formulir Sidang</a>
         </li>
         <li class="dafja">
           <a href="daftarpengaju.php"><i></i>Daftar Pengajuan</a>
@@ -74,23 +114,25 @@
       </div>
       <div class="overlap-group">
         <div class="overlap-group3">
-          <div class="data">Data</div>
-          <div class="frame10">
-            <button class="update" onclick="window.location.href='formsid(up).php'">Update</button>
-          </div>
-          <div class="asset">
-            <div class="nama-1">Nama</div>
-            <input type="text" class="nama" value="<?php echo $namaMahasiswa; ?>" readonly/>
-            <div class="rectangle-25"></div>
-          </div>
-          <div class="asset">
-            <div class="nama-1">Nim</div>
-            <input type="text" class="NIM" value="<?php echo $nimMahasiswa; ?>" readonly/>
-            <div class="rectangle-25"></div>
-          </div>
-          <div class="asset">
-            <div class="nama-1">Tanggal Sidang</div>
-            <input type="text" class="tanggal" value="<?php echo $tanggal; ?>" readonly/>
+          <form action="formsid.php" method="post">
+            <div class="data">Data</div>
+            <div class="frame10">
+              <button type="submit" class="submit" name="submit">Update</button>
+            </div>
+            <button class="batal" onclick="window.location.href='formsid.php'">Batal</button>
+            <div class="asset">
+              <div class="nama-1">Nama</div>
+              <input type="text" class="nama" value="<?php echo $namaMahasiswa; ?>" readonly/>
+              <div class="rectangle-25"></div>
+            </div>
+            <div class="asset">
+              <div class="nama-1">Nim</div>
+              <input type="text" class="NIM" value="<?php echo $nimMahasiswa; ?>" readonly/>
+              <div class="rectangle-25"></div>
+            </div>
+            <div class="asset">
+              <div class="nama-1">Tanggal Sidang</div>
+              <input type="text" class="tanggal" value="<?php echo $tanggal; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
@@ -105,12 +147,12 @@
           </div>
           <div class="asset">
             <div class="nama-1">Topik Skripsi</div>
-            <input type="text" class="topik" value="<?php echo $topik; ?>" readonly/>
+            <input type="text" class="topik" value="<?php echo $topik; ?>" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Judul Skripsi</div>
-            <input type="text" class="judul" value="<?php echo $judul; ?>" readonly/>
+            <input type="text" class="judul" value="<?php echo $judul; ?>" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
@@ -125,7 +167,7 @@
           </div>
           <div class="asset">
             <div class="nama-1">Detail</div>
-            <input type="text" class="detail" value="<?php echo $detail; ?>" readonly/>
+            <input type="text" class="detail" value="<?php echo $detail; ?>" />
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
@@ -133,6 +175,7 @@
             <input type="text" class="status" value="<?php echo $status; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
+        </form>
         </div>
       </div>
     </div>

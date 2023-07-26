@@ -149,6 +149,25 @@ body {
     border: none;
 }
 
+.overlap-group button.batal {
+    position: relative;
+    left: 747px;
+    bottom: 107px;
+    border-radius: 5px;
+    padding: 4px 25px 6px 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(132, 184, 225, 1);
+    color: #000;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    border: none;
+}
+
 .overlap-group3 {
     position: relative;
     top: 60px;

@@ -4,41 +4,23 @@
     $nim = $_SESSION['NIM'];
 
     // Query untuk mengambil data mahasiswa berdasarkan NIM
-    $query = "SELECT NIM, nama_Mahasiswa, NoTelpon, Email, password FROM mahasiswa WHERE NIM = '$nim'";
+    $query = "SELECT mahasiswa.NIM, mahasiswa.nama_Mahasiswa, jadwal.tanggal, jadwal.sesi, jadwal.ruang, jadwal.detail, jadwal.status, skripsi.topikSkripsi, skripsi.judulSkripsi, skripsi.abstrakSkripsi, skripsi.NIDN1, skripsi.NIDN2, dosen1.nama_dosen AS nama_dosen1, dosen2.nama_dosen AS nama_dosen2 FROM jadwal INNER JOIN mahasiswa ON jadwal.NIM = mahasiswa.NIM INNER JOIN skripsi ON jadwal.idskripsi = skripsi.idskripsi INNER JOIN dosen AS dosen1 ON skripsi.NIDN1 = dosen1.NIDN INNER JOIN dosen AS dosen2 ON skripsi.NIDN2 = dosen2.NIDN WHERE mahasiswa.NIM = '$nim'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
      // Ambil data mahasiswa
     $nimMahasiswa = $row['NIM'];
-    $password = $row['password'];
     $namaMahasiswa = $row['nama_Mahasiswa'];
-    $noTelpMahasiswa = $row['NoTelpon'];
-    $emailMahasiswa = $row['Email'];
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Mengambil nilai input dari elemen formulir
-      $topikSkripsi = $_POST['topikSkripsi'];
-      $topikSkripsiEN = $_POST['topikSkripsiEN'];
-      $judulSkripsi = $_POST['judulSkripsi'];
-      $judulSkripsiEN = $_POST['judulSkripsiEN'];
-      $abstrakSkripsi = $_POST['abstrakSkripsi'];
-      $dosenPembimbing1 = $_POST['dosenPembimbing1'];
-      $dosenPembimbing2 = $_POST['dosenPembimbing2'];
-  
-      // Query INSERT untuk menyimpan data ke tabel pengajuan_sidang
-      $query = "INSERT INTO skripsi (topikSkripsi, topikSkripsiEN, judulSkripsi, judulSkripsiEN, abstrakSkripsi, dosenPembimbing1, dosenPembimbing2)
-                VALUES ('$topikSkripsi', '$topikSkripsiEN', '$judulSkripsi', '$judulSkripsiEN', '$abstrakSkripsi', '$dosenPembimbing1', '$dosenPembimbing2')";
-  
-      // Menjalankan query INSERT
-      if (mysqli_query($koneksi, $query)) {
-          // Jika data berhasil disimpan, redirect ke halaman lain atau tampilkan pesan sukses
-          header("Location: ../Dashboard_admin/informasipenguji.php"); // Ganti "halaman_lain.php" dengan halaman tujuan setelah data disimpan
-          exit;
-      } else {
-          // Jika terjadi error saat menyimpan data, tampilkan pesan error
-          echo "Error: " . mysqli_error($koneksi);
-      }
-  }
+    $tanggal = $row['tanggal'];
+    $sesi = $row['sesi'];
+    $ruang = $row['ruang'];
+    $topik = $row['topikSkripsi'];
+    $judul = $row['judulSkripsi'];
+    $abstrak = $row['abstrakSkripsi'];
+    $dospen1 = $row['nama_dosen1'];
+    $dospen2 = $row['nama_dosen2'];
+    $detail = $row['detail'];
+    $status = $row['status'];
 ?>
 
 
@@ -101,7 +83,7 @@
             <button class="batal">Batal</button>
             <div class="asset">
               <div class="nama-1">Topik Skripsi</div>
-              <input type="text" class="nama" name="topikSkripsi"/>
+              <input type="text" class="nama" name="topikSkripsi" value="<?php echo $topik; ?>" readonly/>
               <div class="rectangle-25"></div>
             </div>
             <div class="asset">
@@ -111,7 +93,7 @@
             </div>
             <div class="asset">
               <div class="nama-1">Judul Skripsi</div>
-              <input type="text" class="Password" name="judulSkripsi"/>
+              <input type="text" class="Password" name="judulSkripsi" value="<?php echo $judul; ?>" readonly/>
               <div class="rectangle-25"></div>
           </div>
           <div class="asset">
@@ -121,17 +103,17 @@
           </div>
           <div class="asset">
             <div class="nama-1">Abstrak Skripsi</div>
-            <input type="text" class="Email" name="abstrakSkripsi" />
+            <input type="text" class="Email" name="abstrakSkripsi" value="<?php echo $abstrak; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Dosen Pembimbing 1</div>
-            <input type="text" class="Email" name="dosenPembimbing1"/>
+            <input type="text" class="Email" name="dosenPembimbing1" value="<?php echo $dospen1; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
           <div class="asset">
             <div class="nama-1">Dosen Pembimbing 2</div>
-            <input type="text" class="Email" name="dosenPembimbing2" />
+            <input type="text" class="Email" name="dosenPembimbing2" value="<?php echo $dospen2; ?>" readonly/>
             <div class="rectangle-25"></div>
           </div>
         </form>

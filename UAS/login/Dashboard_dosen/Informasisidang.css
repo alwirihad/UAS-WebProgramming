@@ -187,6 +187,68 @@ input {
     text-transform: capitalize;
 }
 
+.jadwal {
+    position: relative;
+    left: 30px;
+    bottom: 40px;
+    display: grid;
+    grid-template-columns: auto repeat(3, 1fr);
+    /* Mengatur 4 kolom dengan lebar sama */
+    gap: 1px;
+    /* Jarak antara sel */
+    border: 1px solid rgba(16, 65, 103, 1);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 750px;
+    height: 40px;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.judul {
+    border-left: 1px solid #104167;
+    background-color: #ffffff;
+    padding: 8px;
+    text-align: center;
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+.jadwal1 {
+    position: relative;
+    left: 30px;
+    bottom: 35px;
+    display: grid;
+    grid-template-columns: auto repeat(3, 1fr);
+    /* Mengatur 4 kolom dengan lebar sama */
+    gap: 1px;
+    /* Jarak antara sel */
+    border: 1px solid rgba(16, 65, 103, 1);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 750px;
+    height: 40px;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.judul1 {
+    border-left: 1px solid #104167;
+    background-color: #ffffff;
+    padding: 8px;
+    text-align: center;
+    color: #ffffff;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
 @media(max-width: 768px) {
     .sidebar {
         width: 100%;
